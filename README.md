@@ -172,3 +172,14 @@ RUNNING
  
  More to come...
  
+FUTURE PLANS
+============
+
+Here are some things I plan to add:
+
+* Configuration interface. The user will be able to configure the program (the #defines) from the console instead of needing to recompile. There would be saved to EEPROM.
+* User messages will be saved to EEPROM so it can power up and start displaying.
+* Fonts. I have dozens of fonts that were used in my 1990 MiniBanners program for the Radio Shack Tandy/TRS-80 Color Computer 3. I plan to build in as many of them as will fit and allow the messages to select/change fonts.
+* Color. I want to allow changing colors, fonts, etc.
+
+The end result should be a stand-alone LED sign device similar to a BetaBrite... Hook up LED strips, configure from the serial console, and it will power up and just run.
