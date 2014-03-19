@@ -27,11 +27,12 @@ some plans to alter or rewrite the LED library to get past this limitation.
 
 See my original articles:
 
-TO BE DONE
+http://subethasoftware.com/2014/03/15/simple-scrolling-led-sign-for-neopixel-ws2811-or-lpn8806/
 
 REVISION
 ========
 2014-03-14 allenh - Initial, hastily created README file.
+2014-03-09 allenh - Adding link to my original article.
 
 FILES
 =====
