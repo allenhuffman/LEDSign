@@ -5,6 +5,8 @@ Simple scrolling LED Sign for WS2811 (Adafruit NeoPixels). It can easily be
 modified to work with LPN8806 or other LED strips with individually addressable
 lights. WORK-IN-PROGRESS/DEMO!
 
+It has now been tested with four LED strips, and the logic appears to work.
+
 ===============================================================================
 
 This code is designed to work with the Adafruit_NeoPixel library:
@@ -33,6 +35,7 @@ REVISION
 ========
 * 2014-03-14 allenh - Initial, hastily created README file.
 * 2014-03-09 allenh - Adding link to my original article.
+* 2014-03-22 allenh - Added not about being tested on four strips.
 
 FILES
 =====
