@@ -32,6 +32,7 @@
  
  2014-03-13 0.00 allenh - Initial version.
  2014-03-14 0.01 allenh - Cleaning up code and making configurable.
+ 2014-03-22 0.02 allenh - Tested with four strips. Now actually works.
  
  TODO:
  * Handle LED spacing gaps (if there are LEDs between each row that are not
@@ -43,7 +44,7 @@
  * A bug will leave the left most column on if the final character has set
    pixels in the rightmost column. Oops.
  -----------------------------------------------------------------------------*/
-#define VERSION "0.01"
+#define VERSION "0.02"
 
 #include <Adafruit_NeoPixel.h>
 #include "LEDSign.h"
@@ -77,7 +78,7 @@
 
 // LED strip layout.
 // Where is LED 0? TOPLEFT, TOPRIGHT, BOTTOMLEFT, or BOTTOMRIGHT
-#define LAYOUTSTART    BOTTOMRIGHT
+#define LAYOUTSTART    BOTTOMLEFT //TOPLEFT
 
 // If the strips run one direction, then reverse for the next row,
 // use ZIGZAG, else use STRAIGHT.
@@ -91,8 +92,8 @@
 #define LEDBRIGHTNESS  2
 
 // Specify which font to use. (These examples are for the TVout fonts.)
-//const unsigned char *font = font4x6;
-const unsigned char *font = font6x8;
+const unsigned char *font = font4x6;
+//const unsigned char *font = font6x8;
 //const unsigned char *font = font8x8; // Blank row on top. Bad font.
 //const unsigned char *font = font8x8ext;
 
@@ -269,13 +270,13 @@ void loop() {
             {
               // If going right (starting at left), we will use the loop col,
               // else we will calculate a col that goes backwards.
-              if (colDir==LEFT)
+              if (colDir==RIGHT)
               {
                 colOffset = col;
               }
               else
               {
-                colOffset = LEDSPERROW-1-col;
+                colOffset = LEDSPERROW-1-col; // -1
               }
               
               // If we run out of letters, replace with a space.
@@ -291,10 +292,12 @@ void loop() {
               // Get the appropriate byte from the font data.
               if (bitRead(pgm_read_byte_near(&font[FONTDATAOFFSET+
                 (ch-fontStartChar)*fontHeight+rowOffset]),
-                (colDir==LEFT ? 7-fontBit : 7-(fontWidth-1)+fontBit))==1)
+                //(colDir==RIGHT ? 7-fontBit : 7-(fontWidth-1)+fontBit))==1)
+                //(colDir==LEFT ? 7-fontBit : 7-(fontWidth-1)+fontBit))==1)
+                7-fontBit)==1)
               {
                 // 1 = set a pixel.
-                strip.setPixelColor(LEDSPERROW-col+(row*LEDSPERROW),
+                strip.setPixelColor((row*LEDSPERROW)+colOffset,
                   strip.Color(127,0,0));
 
                 DEBUG_PRINT(F("#"));
@@ -302,7 +305,7 @@ void loop() {
               else
               {
                 // 0 = unset a pixel.
-                strip.setPixelColor(LEDSPERROW-col+(row*LEDSPERROW), 0);
+                strip.setPixelColor((row*LEDSPERROW)+colOffset, 0);
 
                 DEBUG_PRINT(F(" "));
               }
@@ -324,13 +327,13 @@ void loop() {
             if (layoutMode==ZIGZAG)
             {
               // Invert direction.
-              if (colDir==LEFT)
+              if (colDir==RIGHT)
               {
-                colDir = RIGHT;
+                colDir = LEFT;
               }
               else
               {
-                colDir = LEFT;
+                colDir = RIGHT;
               }
             } // end of if (layoutMode==ZIGZAG)
           } // end of for (row=0; row<ROWS && row<fontHeight ; row++)
