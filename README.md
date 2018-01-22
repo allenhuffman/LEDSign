@@ -35,7 +35,7 @@ REVISION
 ========
 * 2014-03-14 allenh - Initial, hastily created README file.
 * 2014-03-09 allenh - Adding link to my original article.
-* 2014-03-22 allenh - Added not about being tested on four strips.
+* 2014-03-22 allenh - Added note about being tested on four strips.
 
 FILES
 =====
